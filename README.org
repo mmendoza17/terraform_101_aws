@@ -1,18 +1,22 @@
 #+title: Terraform 101
 
 #+begin_src sh :results output :eval no :exports results
-cowsay "Hello my friends! Welcome to this Repo"
+cowsay "Hello Bootcampers! Welcome to this Repo, are you ready to become Data Engineers?"
 #+end_src
 
 #+RESULTS:
-:  ________________________________________
-: < Hello my friends! Welcome to this Repo >
-:  ----------------------------------------
-:         \   ^__^
-:          \  (oo)\_______
-:             (__)\       )\/\
-:                 ||----w |
-:                 ||     ||
+#+begin_example
+ ____________________________________
+/ Hello Bootcampers! Welcome to this \
+| Repo, are you ready to become Data |
+\ Engineers?                         /
+ ------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+#+end_example
 
 This repository contains the main procedure shown for the Wizeline DEB. This is a detailed guide to the first steps in the 101 trainee on Terraform.
 
