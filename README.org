@@ -44,7 +44,7 @@ If you don't have an AWS Access Credentials, create your AWS Access Key ID and S
 
 Your default region can be found in the AWS Web Management Console beside your username. Select the region drop down to find the region name (eg. us-east-2) corresponding with your location.
 
-* Terraform 101
+* Instructions
 1. Clone this repository using the =git clone= command.
 2. Following with your training, let's start runnning =touch my_first.tf= in order to create a file to puth all our first configuration inside.
 3. Open your file and puth the header of the provider.
