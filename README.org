@@ -52,78 +52,87 @@ Your default region can be found in the AWS Web Management Console beside your u
 3. Open your file and puth the header of the provider.
 
    #+begin_src terraform :eval no
-   terraform {
-     required_providers {
-       aws = {
-         source = "hashicorp/aws"
-       }
-     }
-     required_version = ">=0.12"
-   }
+    # Terraform Block
+    terraform {
+      required_providers {
+        aws = {
+          source = "hashicorp/aws"
+        }
+      }
+      required_version = ">=0.12"
+    }
 
-   provider "aws" {
-     profile = "default"
-     region  = "us-east-2"
-   }
+    # Provider Block
+    provider "aws" {
+      profile = "default"
+      region  = "us-east-2"
+    }
    #+end_src
 
 4. Let's start creating a bucket in S3.
 
    #+begin_src terraform :eval no
-   resource "aws_s3_bucket" "b" {
-     bucket = "deb_tf_bucket"
-     acl    = "private"
-   }
+    # Resource Block - S3 Bucket
+    resource "aws_s3_bucket" "b" {
+      bucket = "deb_tf_bucket"
+      acl    = "private"
+    }
    #+end_src
 
 5. Deppending on what terraform version you are, you may retrive a message like this:
 
-   #+begin_src sh :eval no
-   Warning: Argument is deprecated
+   #+begin_src bash :eval no
+    Warning: Argument is deprecated
 
-   with aws_s3_bucket.b,
-   on my_first.tf line 17, in resource "aws_s3_bucket" "b":
-   17:      acl    = "private"
+    with aws_s3_bucket.b,
+    on my_first.tf line 17, in resource "aws_s3_bucket" "b":
+    17:      acl    = "private"
 
-   Use the aws_s3_bucket_acl resource instead
+    Use the aws_s3_bucket_acl resource instead
    #+end_src
 
-   in case you have this /warning/ please change the last setup with this:
+   in case you have this /warning/ please erase the acl line in teh previous code block and add to the last setup this new code block:
 
    #+begin_src terraform :eval no
-   # Set the acl
-   resource "aws_s3_bucket_acl" "b_acl" {
-     bucket = aws_s3_bucket.b.id
-     acl    = "private"
-   }
+    # Set the acl
+    resource "aws_s3_bucket_acl" "b_acl" {
+      bucket = aws_s3_bucket.b.id
+      acl    = "private"
+    }
    #+end_src
 
 6. Now let's uppload our first csv file to the recently created bucket, in order to do so, please copy the next code block in your main terraform file.
 
    #+begin_src terraform :eval no
-
-   # Upload an object
-   resource "aws_s3_bucket_object" "object" {
-   bucket   = aws_s3_bucket.b.id
-     key    = "my_first_upload.csv"
-     source = "data/ds_salaries.csv"
-     etag   = filemd5("data/ds_salaries.csv")
-   }
+    # Upload an object to S3-Bucket
+    resource "aws_s3_bucket_object" "object" {
+      bucket   = aws_s3_bucket.b.id
+      key      = "my_first_upload.csv"
+      source   = "data/ds_salaries.csv"
+      etag     = filemd5("data/ds_salaries.csv")
+    }
    #+end_src
 
 7. After checking if your file was uploaded into your bucket, we can now move to te last part. Which is creating a redshift cluster adding the the next code block.
 
    #+begin_src terraform :eval no
-   resource "aws_redshift_cluster" "example" {
-  cluster_identifier  = "tf-redshift-cluster"
-  database_name       = "mydb"
-  master_username     = "exampleuser"
-  master_password     = "Deb_2022"
-  node_type           = "dc2.large"
-  cluster_type        = "single-node"
-  skip_final_snapshot = true
-}
-
+    # Redshift resourse block
+    resource "aws_redshift_cluster" "example" {
+      cluster_identifier  = "tf-redshift-cluster"
+      database_name       = "mydb"
+      master_username     = "exampleuser"
+      master_password     = "Deb_2022"
+      node_type           = "dc2.large"
+      cluster_type        = "single-node"
+      skip_final_snapshot = true
+    }
    #+end_src
 
 * Next steps
+ Now you know the basics about creating infrastructure in the Cloud, you created three main services to create your first pipeline, the next steps is loading the information uploaded to our S3 Bucket into our Redshift DW. There are several ways to do it, the most basic one is using the AWS provided UI settings all the paremeter by hand, this can be make it following this [[https://docs.aws.amazon.com/redshift/latest/dg/tutorial-loading-data.html][guide]] provided by AWS.
+
+ In case you want go deeper with this practice, you can add resources like a =lambda function=, triggering an action when a file is uploaded into a S3 bucket, this task can also by provided by other orchestration tools such as =airflow= which is part of the next comming sessions.
+
+ Some reference links:
+ + [[https://datacenternotes.com/2018/09/01/aws-server-less-data-pipelines-with-terraform-part-1/][AWS Server-less data pipelines with Terraform to Redshift]]
+ + [[https://github.com/claranet/terraform-aws-lambda][Terraform-Lambda main repository]]
