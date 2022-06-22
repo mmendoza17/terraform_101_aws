@@ -29,7 +29,7 @@ This repository only contains the main workflow in the /README/ file, inside the
 Use the package manager homebrew to install the AWS CLI.
 
 #+begin_src sh :eval no
-brew isntall awscli
+brew install awscli
 #+end_src
 
 After you've installed the AWS CLI, configure it by running =aws configure=.
@@ -48,4 +48,68 @@ If you don't have an AWS Access Credentials, create your AWS Access Key ID and S
 Your default region can be found in the AWS Web Management Console beside your username. Select the region drop down to find the region name (eg. us-east-2) corresponding with your location.
 
 * Terraform 101
-Following
+1. Following with your training, let's start runnning =touch my_first.tf= in order to create a file to puth all our first configuration inside.
+2. Open your file and puth the header of the provider.
+
+   #+begin_src terraform :eval no
+   terraform {
+     required_providers {
+       aws = {
+         source = "hashicorp/aws"
+       }
+     }
+     required_version = ">=0.12"
+   }
+
+   provider "aws" {
+     profile = "default"
+     region  = "us-east-2"
+   }
+   #+end_src
+
+3. Let's start creating a bucket in S3.
+
+   #+begin_src terraform :eval no
+   resource "aws_s3_bucket" "b" {
+     bucket = "deb_tf_bucket"
+     acl    = "private"
+   }
+   #+end_src
+
+4. Deppending on what terraform version you are, you may retrive a message like this:
+
+   #+begin_src sh :eval no
+   Warning: Argument is deprecated
+
+   with aws_s3_bucket.b,
+   on my_first.tf line 17, in resource "aws_s3_bucket" "b":
+   17:      acl    = "private"
+
+   Use the aws_s3_bucket_acl resource instead
+   #+end_src
+
+   in case you have this /warning/ please change the last setup with this:
+
+   #+begin_src terraform :eval no
+   # Set the acl
+   resource "aws_s3_bucket_acl" "b_acl" {
+     bucket = aws_s3_bucket.b.id
+     acl    = "private"
+   }
+   #+end_src
+
+5. Now let's uppload our first csv file to the recently created bucket, in order to do so, please copy the next code block in your main terraform file.
+
+   #+begin_src terraform :eval no
+
+   # Upload an object
+   resource "aws_s3_bucket_object" "object" {
+   bucket   = aws_s3_bucket.b.id
+     key    = "my_first_upload.csv"
+     source = "data/ds_salaries.csv"
+     etag   = filemd5("data/ds_salaries.csv")
+   }
+
+   #+end_src
+
+6.
