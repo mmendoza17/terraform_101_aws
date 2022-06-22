@@ -10,11 +10,10 @@ tree
 
 #+RESULTS:
 : .
-: ├── README.md
 : ├── README.org
-: ├── data
+: └─── data
 :     └── ds_salaries.csv
-: 1 directory, 3 files
+: 1 directory, 2 files
 
 This repository only contains the main workflow in the /README/ file, inside the =/data= path there is only one file with salaries of Data Science.
 
