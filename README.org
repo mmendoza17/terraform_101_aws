@@ -1,6 +1,6 @@
 #+title: Terraform 101
 
-This repository contains the main procedure shown for the Wizeiine DEB. This is a detailed guide to the first steps in the 101 trainee on Terraform.
+This repository contains the main procedure shown for the Wizeline DEB. This is a detailed guide to the first steps in the 101 trainee on Terraform.
 
 * Contains of this repo
 
@@ -46,7 +46,7 @@ Your default region can be found in the AWS Web Management Console beside your u
 
 * Instructions
 1. Clone this repository using the =git clone= command.
-2. Following with your training, let's start runnning =touch my_first.tf= in order to create a file to puth all our first configuration inside.
+2. Let's start runnning =touch my_first.tf= in your your terminal in order to create a file to puth all our first configuration inside.
 3. Open your file and puth the header of the provider.
 
    #+begin_src terraform :eval no
@@ -89,7 +89,7 @@ Your default region can be found in the AWS Web Management Console beside your u
     Use the aws_s3_bucket_acl resource instead
    #+end_src
 
-   in case you have this /warning/ please erase the acl line in teh previous code block and add to the last setup this new code block:
+   in case you have this /warning/ please erase the acl line in the previous code block and add to the last setup this new code block:
 
    #+begin_src terraform :eval no
     # Set the acl
@@ -114,11 +114,11 @@ Your default region can be found in the AWS Web Management Console beside your u
 7. After checking if your file was uploaded into your bucket, we can now move to te last part. Which is creating a redshift cluster adding the the next code block.
 
    #+begin_src terraform :eval no
-    # Redshift resourse block
+    # Redshift resource block
     resource "aws_redshift_cluster" "example" {
       cluster_identifier  = "tf-redshift-cluster"
-      database_name       = "mydb"
-      master_username     = "exampleuser"
+      database_name       = "mydebdb"
+      master_username     = "debuser"
       master_password     = "Deb_2022"
       node_type           = "dc2.large"
       cluster_type        = "single-node"
