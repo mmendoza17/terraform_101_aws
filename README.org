@@ -4,7 +4,7 @@ This repository contains the main procedure shown for the Wizeiine DEB. This is 
 
 * Contains of this repo
 
-#+begin_src sh :results output :eval yes :exports results
+#+begin_src sh :results output :eval no :exports results
 tree
 #+end_src
 
@@ -15,7 +15,6 @@ tree
 : ├── data
 : │   └── ds_salaries.csv
 : └── lamba
-:
 : 2 directories, 3 files
 
 This repository only contains the main workflow in the /README/ file, inside the =/data= path there is only one file with salaries of Data Science. Inside the =/lambda= path you will find a configuration written in Python to run a lambda function which their respectively IAM permisions.
@@ -48,8 +47,9 @@ If you don't have an AWS Access Credentials, create your AWS Access Key ID and S
 Your default region can be found in the AWS Web Management Console beside your username. Select the region drop down to find the region name (eg. us-east-2) corresponding with your location.
 
 * Terraform 101
-1. Following with your training, let's start runnning =touch my_first.tf= in order to create a file to puth all our first configuration inside.
-2. Open your file and puth the header of the provider.
+1. Clone this repository using the =git clone= command.
+2. Following with your training, let's start runnning =touch my_first.tf= in order to create a file to puth all our first configuration inside.
+3. Open your file and puth the header of the provider.
 
    #+begin_src terraform :eval no
    terraform {
@@ -67,7 +67,7 @@ Your default region can be found in the AWS Web Management Console beside your u
    }
    #+end_src
 
-3. Let's start creating a bucket in S3.
+4. Let's start creating a bucket in S3.
 
    #+begin_src terraform :eval no
    resource "aws_s3_bucket" "b" {
@@ -76,7 +76,7 @@ Your default region can be found in the AWS Web Management Console beside your u
    }
    #+end_src
 
-4. Deppending on what terraform version you are, you may retrive a message like this:
+5. Deppending on what terraform version you are, you may retrive a message like this:
 
    #+begin_src sh :eval no
    Warning: Argument is deprecated
@@ -98,7 +98,7 @@ Your default region can be found in the AWS Web Management Console beside your u
    }
    #+end_src
 
-5. Now let's uppload our first csv file to the recently created bucket, in order to do so, please copy the next code block in your main terraform file.
+6. Now let's uppload our first csv file to the recently created bucket, in order to do so, please copy the next code block in your main terraform file.
 
    #+begin_src terraform :eval no
 
@@ -109,7 +109,21 @@ Your default region can be found in the AWS Web Management Console beside your u
      source = "data/ds_salaries.csv"
      etag   = filemd5("data/ds_salaries.csv")
    }
+   #+end_src
+
+7. After checking if your file was uploaded into your bucket, we can now move to te last part. Which is creating a redshift cluster adding the the next code block.
+
+   #+begin_src terraform :eval no
+   resource "aws_redshift_cluster" "example" {
+  cluster_identifier  = "tf-redshift-cluster"
+  database_name       = "mydb"
+  master_username     = "exampleuser"
+  master_password     = "Deb_2022"
+  node_type           = "dc2.large"
+  cluster_type        = "single-node"
+  skip_final_snapshot = true
+}
 
    #+end_src
 
-6.
+* Next steps
