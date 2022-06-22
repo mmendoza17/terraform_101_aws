@@ -104,7 +104,7 @@ Your default region can be found in the AWS Web Management Console beside your u
    #+begin_src terraform :eval no
     # Upload an object to S3-Bucket
     resource "aws_s3_bucket_object" "object" {
-      bucket   = aws_s3_bucket.b.id
+      bucket   = "aws_s3_bucket.b.id"
       key      = "my_first_upload.csv"
       source   = "data/ds_salaries.csv"
       etag     = filemd5("data/ds_salaries.csv")
