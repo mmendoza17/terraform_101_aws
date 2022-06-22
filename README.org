@@ -94,7 +94,7 @@ Your default region can be found in the AWS Web Management Console beside your u
    #+begin_src terraform :eval no
     # Set the acl
     resource "aws_s3_bucket_acl" "b_acl" {
-      bucket = aws_s3_bucket.b.id
+      bucket = "aws_s3_bucket.b.id"
       acl    = "private"
     }
    #+end_src
