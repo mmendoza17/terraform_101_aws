@@ -13,11 +13,10 @@ tree
 : ├── README.md
 : ├── README.org
 : ├── data
-: │   └── ds_salaries.csv
-: └── lamba
-: 2 directories, 3 files
+:     └── ds_salaries.csv
+: 1 directory, 3 files
 
-This repository only contains the main workflow in the /README/ file, inside the =/data= path there is only one file with salaries of Data Science. Inside the =/lambda= path you will find a configuration written in Python to run a lambda function which their respectively IAM permisions.
+This repository only contains the main workflow in the /README/ file, inside the =/data= path there is only one file with salaries of Data Science.
 
 * Prerequisites
 + AWS account configured. For this example we are using default profile and set it in /us-east-2/ region
