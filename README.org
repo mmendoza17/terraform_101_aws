@@ -1,6 +1,6 @@
 #+title: Terraform 101
 
-#+begin_src sh :results output :eval no :export results
+#+begin_src sh :results output :eval no :exports results
 cowsay "Hello my friends! Welcome to this Repo"
 #+end_src
 
