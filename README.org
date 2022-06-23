@@ -90,7 +90,7 @@ Your default region can be found in the AWS Web Management Console beside your u
    #+begin_src terraform :eval no
     # Resource Block - S3 Bucket
     resource "aws_s3_bucket" "b" {
-      bucket = "deb_tf_bucket"
+      bucket = "deb-tf-bucket"
       acl    = "private"
     }
    #+end_src
