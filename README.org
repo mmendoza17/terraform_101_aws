@@ -144,6 +144,23 @@ Your default region can be found in the AWS Web Management Console beside your u
     }
    #+end_src
 
+* WARNING!
+
+Remember that you need to destroy everything after you finish your practice using:
+
+#+begin_src terraform :eval no
+terraform destroy
+#+end_src
+
+and you will retrieve something like this:
+
+
+#+begin_src sh :eval no
+Destroy complete! Resources: 4 destroyed.
+#+end_src
+
+In case you are not sure that all of your resources were destroyed, you always can go to the console or main page of your cloud ( [[https://us-east-2.console.aws.amazon.com/console/home?region=us-east-2][aws-console]] & [[https://www.google.com/aclk?sa=l&ai=DChcSEwiU8PuS7cT4AhX9wsIEHZtZAqEYABAAGgJwdg&sig=AOD64_3qsCEonPgmAJhSa4y7QkyFIlnD4Q&q&adurl&ved=2ahUKEwj56POS7cT4AhV9IEQIHTzACH4Q0Qx6BAgCEAE][gcp-console]] ) and check if all the resources where destroyed.
+
 * Next steps
  Now you know the basics about creating infrastructure in the Cloud, you created three main services to create your first pipeline, the next steps is loading the information uploaded to our S3 Bucket into our Redshift DW. There are several ways to do it, the most basic one is using the AWS provided UI settings all the paremeter by hand, this can be make it following this [[https://docs.aws.amazon.com/redshift/latest/dg/tutorial-loading-data.html][guide]] provided by AWS.
 
